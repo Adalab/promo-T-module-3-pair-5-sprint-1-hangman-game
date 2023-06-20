@@ -1,10 +1,16 @@
 // seccion import
-
+import {useState} from 'react';
 //cosas de React, archivos propios, Sass, Images
 import '../styles/App.scss';
 
 /*COMPONENTE*/
 function App() {
+  const [numberOfErrors, setNumber] = useState(0);
+
+  const handleClick = (event) => {
+    setNumber(numberOfErrors+1);
+  }
+
   /*
   Variables de estado, funciones manejadoras de eventos, variables, funcion handle
   */
@@ -32,6 +38,8 @@ function App() {
             </ul>
           </div>
           <div class="error">
+          <button onClick={handleClick}>Incrementar</button>
+    
             <h2 class="title">Letras falladas:</h2>
             <ul class="letters">
               <li class="letter">f</li>
@@ -53,7 +61,7 @@ function App() {
             />
           </form>
         </section>
-        <section class="dummy error-5">
+        <section class={`dummy error-${numberOfErrors}`}>
           <span class="error-13 eye"></span>
           <span class="error-12 eye"></span>
           <span class="error-11 line"></span>
