@@ -6,9 +6,21 @@ import '../styles/App.scss';
 /*COMPONENTE*/
 function App() {
   const [numberOfErrors, setNumber] = useState(0);
-
+  const [lastLetter, setLetter] = useState("");
+  const [errorMsg, setMsg] = useState("");
   const handleClick = (event) => {
     setNumber(numberOfErrors+1);
+  }
+
+  const handleLetter = (event) => {
+    let inputLetter = event.target.value;
+    //setLetter(event.target.value);
+    if(inputLetter.match(/^[a-zA-ZñÑá-úÁ-Ú´]$/) || inputLetter==='') {
+      setLetter(event.target.value);
+      setMsg('');
+    } else {
+      setMsg('Letra no válida');
+    }
   }
 
   /*
@@ -58,7 +70,10 @@ function App() {
               type="text"
               name="last-letter"
               id="last-letter"
+              onChange={handleLetter}
+              value={lastLetter}
             />
+            <p>{errorMsg}</p>
           </form>
         </section>
         <section class={`dummy error-${numberOfErrors}`}>
