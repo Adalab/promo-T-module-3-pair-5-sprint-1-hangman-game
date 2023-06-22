@@ -8,6 +8,17 @@ function App() {
   const [numberOfErrors, setNumber] = useState(0);
   const [lastLetter, setLetter] = useState("");
   const [errorMsg, setMsg] = useState("");
+  const [word, setWord] = useState("katakroker");
+  const [userLetters, setUserLetters] = useState([]);
+  const renderSolutionLetters = (event) => {
+    const wordLetters = word.split('');
+   // return wordLetters.map((eachLetter, index) => {
+      if(
+        userLetters.includes(eachLetter)
+      ){return }
+      return <li class= "letter" key={index}></li>
+    })
+  }
   const handleClick = (event) => {
     setNumber(numberOfErrors+1);
   }
@@ -17,6 +28,7 @@ function App() {
     //setLetter(event.target.value);
     if(inputLetter.match(/^[a-zA-ZñÑá-úÁ-Ú´]$/) || inputLetter==='') {
       setLetter(event.target.value);
+      userLetters.push(inputLetter);
       setMsg('');
     } else {
       setMsg('Letra no válida');
@@ -36,17 +48,9 @@ function App() {
         <section>
           <div class="solution">
             <h2 class="title">Solución:</h2>
+          
             <ul class="letters">
-              <li class="letter">k</li>
-              <li class="letter">a</li>
-              <li class="letter"></li>
-              <li class="letter">a</li>
-              <li class="letter">k</li>
-              <li class="letter">r</li>
-              <li class="letter"></li>
-              <li class="letter">k</li>
-              <li class="letter">e</li>
-              <li class="letter">r</li>
+               {renderSolutionLetters()}
             </ul>
           </div>
           <div class="error">
