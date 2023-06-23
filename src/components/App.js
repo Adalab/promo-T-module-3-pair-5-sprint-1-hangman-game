@@ -10,15 +10,32 @@ function App() {
   const [errorMsg, setMsg] = useState("");
   const [word, setWord] = useState("katakroker");
   const [userLetters, setUserLetters] = useState([]);
-  const renderSolutionLetters = (event) => {
-    const wordLetters = word.split('');
-   // return wordLetters.map((eachLetter, index) => {
-      if(
-        userLetters.includes(eachLetter)
-      ){return }
-      return <li class= "letter" key={index}></li>
-    })
+
+  const wordLetters = word.split('');
+  
+  const renderSolutionLetters = (event) =>{ 
+    
+   return wordLetters.map((eachLetter, index) => {
+      if(userLetters.includes(eachLetter))
+      {
+      return <li class= "letter" key={index}>{eachLetter}</li>
+    } else {
+      return <li class= "letter" key={index}></li>}
+
+   })
   }
+
+  const renderErrorLetters = (event) => {
+    
+   return userLetters.map((eachErrorLetter, index) => {
+      if(wordLetters.includes(eachErrorLetter))
+      {
+      return <li class= "letter" key={index}></li>}
+     else {
+      return <li class= "letter" key={index}>{eachErrorLetter}</li>}
+     })
+  }
+
   const handleClick = (event) => {
     setNumber(numberOfErrors+1);
   }
@@ -28,7 +45,9 @@ function App() {
     //setLetter(event.target.value);
     if(inputLetter.match(/^[a-zA-ZñÑá-úÁ-Ú´]$/) || inputLetter==='') {
       setLetter(event.target.value);
-      userLetters.push(inputLetter);
+      if(inputLetter!= '') {
+        userLetters.push(inputLetter);
+      }
       setMsg('');
     } else {
       setMsg('Letra no válida');
@@ -40,7 +59,7 @@ function App() {
   */
 
   /* RETURN --> html */
-  return <div class="page">
+  return (<div class="page">
       <header>
         <h1 class="header__title">Juego del ahorcado</h1>
       </header>
@@ -57,12 +76,7 @@ function App() {
           <button onClick={handleClick}>Incrementar</button>
     
             <h2 class="title">Letras falladas:</h2>
-            <ul class="letters">
-              <li class="letter">f</li>
-              <li class="letter">q</li>
-              <li class="letter">h</li>
-              <li class="letter">p</li>
-              <li class="letter">x</li>
+            <ul class="letters">{renderErrorLetters()}
             </ul>
           </div>
           <form class="form">
@@ -96,7 +110,8 @@ function App() {
           <span class="error-1 line"></span>
         </section>
       </main>
-    </div>;
+    </div>
+  );
 }
 
 /* export. Para poder utilizarlo en otros archivos de React */
